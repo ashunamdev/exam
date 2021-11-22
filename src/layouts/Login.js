@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-// import axios from "axios";
-import PropTypes from 'prop-types';
+import axios from "axios";
+import PropTypes from "prop-types";
 // import './login.css'
-import './Login.css';
+import "./Login.css";
 import Admin from "layouts/Admin.js";
-import LoginPng from "../assets/img/login.png"
+import LoginPng from "../assets/img/login.png";
 import RTL from "layouts/RTL.js";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-
-
 
 // async function loginUser(credentials) {
 //  return fetch('http://3.139.234.205/login/', {
@@ -23,12 +21,12 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 //    console.log(data,"data");
 // }
 
-export default function Login({setToken}) {
+export default function Login({ setToken }) {
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
-const [ tokenId , setTokenId] = useState();
+  const [tokenId, setTokenId] = useState();
 
   const setForm = (event) => {
     let { name, value } = event.target;
@@ -38,41 +36,44 @@ const [ tokenId , setTokenId] = useState();
     });
   };
 
-  const handleSubmit = () => {
-    setTokenId("dummy Token");
-    // console.log(tokenId);
-    setToken(tokenId)
-    // axios
-    //   .post("http://3.139.234.205/login/", loginData)
-    //   .then((res) => {
-    //     console.log("RESPONSE ==== : ", res);
-    //   })
-    //   .catch((err) => {
-    //     console.log("ERROR: ====", err);
-    //   });
-      if (tokenId) {
-        ReactDOM.render(
-          <BrowserRouter>
-            <Switch>
-              {/* <Route path="/App" component={App} /> */}
-              <Route path="/admin" component={Admin} />
-              <Route path="/rtl" component={RTL} />
-              <Redirect from="/" to="/admin" />
-            </Switch>
-          </BrowserRouter>,
-          document.getElementById("root")
-        );
-      }
+  React.useEffect(() => {
+    let data = window.localStorage.getItem("user");
+    if (data != null) {
+      handleRedirect();
+    }
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("http://3.139.234.205/login/", loginData)
+      .then((res) => {
+        console.log("RESPONSE ==== : ", res);
+        window.localStorage.setItem("user", JSON.stringify(res?.data));
+        setTokenId(res?.token);
+        setToken(tokenId);
+        handleRedirect();
+      })
+      .catch((err) => {
+        alert("username or password does not matched");
+        console.log("ERROR: ====", err);
+      });
   };
 
-  // const handleSubmit = async e => {
-  //   e.preventDefault();
-  //   const token = await loginUser({
-  //     username,
-  //     password
-  //   });
-  //   setToken(token);
-  // }
+  const handleRedirect = () => {
+    ReactDOM.render(
+      <BrowserRouter>
+        <Switch>
+          {/* <Route path="/App" component={App} /> */}
+          <Route path="/admin" component={Admin} />
+          <Route path="/rtl" component={RTL} />
+          <Redirect from="/" to="/admin" />
+        </Switch>
+      </BrowserRouter>,
+      document.getElementById("root")
+    );
+  };
 
   return (
     <div className="login-wrapper">
@@ -106,5 +107,5 @@ const [ tokenId , setTokenId] = useState();
 }
 
 Login.propTypes = {
-  setToken: PropTypes.func.isRequired
+  setToken: PropTypes.func.isRequired,
 };

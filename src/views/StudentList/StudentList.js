@@ -1,80 +1,93 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
 // core components
-import GridItem from "components/Grid/GridItem.js";
-import GridContainer from "components/Grid/GridContainer.js";
-import Table from "components/Table/Table.js";
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardBody from "components/Card/CardBody.js";
+import GridItem from 'components/Grid/GridItem.js';
+import GridContainer from 'components/Grid/GridContainer.js';
+import Card from 'components/Card/Card.js';
+import CardBody from 'components/Card/CardBody.js';
+import MaterialTable from 'material-table';
 
-const styles = {
-  cardCategoryWhite: {
-    "&,& a,& a:hover,& a:focus": {
-      color: "rgba(255,255,255,.62)",
-      margin: "0",
-      fontSize: "14px",
-      marginTop: "0",
-      marginBottom: "0",
-    },
-    "& a,& a:hover,& a:focus": {
-      color: "#FFFFFF",
-    },
-  },
-  cardTitleWhite: {
-    color: "#FFFFFF",
-    marginTop: "0px",
-    minHeight: "auto",
-    fontWeight: "300",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: "3px",
-    textDecoration: "none",
-    "& small": {
-      color: "#777",
-      fontSize: "65%",
-      fontWeight: "400",
-      lineHeight: "1",
-    },
-  },
-};
-
-const useStyles = makeStyles(styles);
+import axios from 'axios';
 
 export default function StudentList() {
-  const classes = useStyles();
+  const [studentList, setStudentList] = useState([]);
+
+  useEffect(() => {
+    populateStudentList();
+  }, []);
+
+  const populateStudentList = () => {
+    var userData = JSON.parse(window.localStorage.getItem('user'));
+
+    const getData = async () => {
+      axios
+        .get('http://3.139.234.205/get-student/', {
+          headers: {
+            Authorization: `JWT ` + userData?.token
+          }
+        })
+        .then((res) => {
+          setStudentList(res.data.data);
+          console.log('RESPONSE ==== : ', res);
+          // console.log('RESPONSE ==== : ', schoolList);
+        })
+        .catch((err) => {
+          alert('something want to wrong');
+          console.log('ERROR: ====', err);
+        });
+    };
+    getData();
+  };
+  const columns = [
+    {
+      title: 'ID',
+      field: 'id'
+    },
+    {
+      title: 'Full Name',
+      field: 'full_name'
+    },
+    {
+      title: 'Gender',
+      field: 'gender'
+    },
+    {
+      title: 'Student Class',
+      field: 'student_class'
+    },
+    {
+      title: 'Roll No.',
+      field: 'roll_no'
+    },
+    {
+      title: 'Batch',
+      field: 'batch'
+    },
+    {
+      title: 'School',
+      field: 'school'
+    },
+    {
+      title: 'User',
+      field: 'user'
+    },
+    {
+      title: 'Password',
+      field: 'password'
+    }
+  ];
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
-      <Card>
-          <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>Students </h4>
-            <div
-              className="tableHeader"
-              style={{ display: "flex", justifyContent: "space-between" }}
-            >
-              <p className={classes.cardCategoryWhite}>
-                Here is a list of students
-              </p>
-              <input
-                id="searchbar"
-                type="text"
-                name="search"
-                placeholder="Enter Student name"
-              ></input>
-            </div>
-          </CardHeader>
+        <Card>
           <CardBody>
-            <Table
-              tableHeaderColor="primary"
-              tableHead={["ID", "Name", "Student Name", "City", "password"]}
-              tableData={[
-                ["1", "Dakota Rice", "St. Raphel", "Niger", "abc123"],
-                ["2", "Dakota Rice", "St. Raphel", "Niger", "abc123"],
-                ["3", "Dakota Rice", "St. Raphel", "Niger", "abc123"],
-                ["4", "Dakota Rice", "St. Raphel", "Niger", "abc123"],
-                ["5", "Dakota Rice", "St. Raphel", "Niger", "abc123"],
-              ]}
+            <MaterialTable
+              title="Student Details"
+              data={studentList}
+              columns={columns}
+              options={{
+                filtering: true
+              }}
             />
           </CardBody>
         </Card>

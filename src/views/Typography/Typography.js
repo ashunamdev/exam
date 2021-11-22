@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import axios from 'axios';
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 // core components
 // import Quote from "components/Typography/Quote.js";
 // import Muted from "components/Typography/Muted.js";
@@ -10,45 +10,45 @@ import { makeStyles } from "@material-ui/core/styles";
 // import Success from "components/Typography/Success.js";
 // import Warning from "components/Typography/Warning.js";
 // import Danger from "components/Typography/Danger.js";
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardBody from "components/Card/CardBody.js";
+import Card from 'components/Card/Card.js';
+import CardHeader from 'components/Card/CardHeader.js';
+import CardBody from 'components/Card/CardBody.js';
 
 const styles = {
   typo: {
-    paddingLeft: "25%",
-    marginBottom: "40px",
-    position: "relative",
+    paddingLeft: '25%',
+    marginBottom: '40px',
+    position: 'relative'
   },
   note: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    bottom: "10px",
-    color: "#c0c1c2",
-    display: "block",
-    fontWeight: "400",
-    fontSize: "13px",
-    lineHeight: "13px",
-    left: "0",
-    marginLeft: "20px",
-    position: "absolute",
-    width: "260px",
+    bottom: '10px',
+    color: '#c0c1c2',
+    display: 'block',
+    fontWeight: '400',
+    fontSize: '13px',
+    lineHeight: '13px',
+    left: '0',
+    marginLeft: '20px',
+    position: 'absolute',
+    width: '260px'
   },
   cardCategoryWhite: {
-    color: "rgba(255,255,255,.62)",
-    margin: "0",
-    fontSize: "14px",
-    marginTop: "0",
-    marginBottom: "0",
+    color: 'rgba(255,255,255,.62)',
+    margin: '0',
+    fontSize: '14px',
+    marginTop: '0',
+    marginBottom: '0'
   },
   cardTitleWhite: {
-    color: "#FFFFFF",
-    marginTop: "0px",
-    minHeight: "auto",
-    fontWeight: "300",
+    color: '#FFFFFF',
+    marginTop: '0px',
+    minHeight: 'auto',
+    fontWeight: '300',
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: "3px",
-    textDecoration: "none",
-  },
+    marginBottom: '3px',
+    textDecoration: 'none'
+  }
 };
 
 const useStyles = makeStyles(styles);
@@ -56,98 +56,68 @@ const useStyles = makeStyles(styles);
 export default function TypographyPage() {
   const classes = useStyles();
   const [errors, setErrors] = useState({});
-  // const URL = "http://3.139.234.205/school-register/";
-  // const [post, setPost] = useState();
   const [schoolData, setSchoolData] = useState({
-    username: "",
-    password: "",
-    confirm_password: "",
-    school_name: "",
-    board: "",
-    city: "",
-    address: "",
-    contact_person: "",
+    username: '',
+    password: '',
+    confirm_password: '',
+    school_name: '',
+    board: '',
+    city: '',
+    address: '',
+    contact_person: ''
   });
 
-  // const assessToken =
-  // "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6ImFkbWluMyIsImV4cCI6MTYzNzE0NDIzNSwib3JpZ19pYXQiOjE2MzcwNTc4MzV9.CMlSCD_a_iqu1Goufg9magpc__2DzZQQBu7g25IjQM";
-
   const handleChange = () => {
-    if (formErrorValidation()) {
-      // axios
-      //   .post(URL, schoolData)
-      //   .then((response) => console.log(response))
-      //   .catch((err) => console.log(err));
-      // console.log(schoolData);
-      // const result = fetch(URL + schoolData, {
-      //   method: "POST",
-      //   headers: {
-      //     "Access-Control-Allow-Origin": "*",
-      //     "x-access-token": assessToken,
-      //   },
-      // });
-      // console.log(result);
-      // const options = {
-      // headers: {
-      //   "Content-Type": "application/json",
-      //   Authorization:
-      //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6ImFkbWluMyIsImV4cCI6MTYzNzE1NTk5Mywib3JpZ19pYXQiOjE2MzcwNjk1OTN9.zF48xmgYyw3mShqjGOtdQbC7Y03EaLHZaRdcBYVULFY",
-      // },
-      // };
+    var userData = JSON.parse(window.localStorage.getItem('user'));
 
-      // axios
-      //   .post("http://3.139.234.205/school-register/", schoolData)
-        
-      //   .then((res) => {
-      //     console.log("RESPONSE ==== : ", res);
-      //   })
-      //   .catch((err) => {
-      //     console.log("ERROR: ====", err);
-      //   });
-      axios.post("http://3.139.234.205/school-register/", {
-        schoolData
-      }, {
-        headers: {
-          'Authorization': `JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6InJvb3QiLCJleHAiOjE2MzcxNDIwOTAsIm9yaWdfaWF0IjoxNjM3MDU1NjkwfQ.635f6fbfNGiJRc6vHx3z5rwn5GTKHAHM4JtE5okk6us` 
-        }
-      })
-      .then((res) => {
-            console.log("RESPONSE ==== : ", res);
-          })
-          .catch((err) => {
-            console.log("ERROR: ====", err);
-          });
+    if (formErrorValidation()) {
+      console.log('schoolData', schoolData);
+      axios
+        .post(
+          'http://3.139.234.205/school-register/',
+          {
+            schoolData
+          },
+          {
+            headers: {
+              Authorization: `JWT ` + userData?.token
+            }
+          }
+        )
+        .then((res) => {
+          alert(res?.message);
+          console.log('RESPONSE ==== : ', res);
+        })
+        .catch((err) => {
+          alert('something want to wrong');
+          console.log('ERROR: ====', err);
+        });
     }
   };
 
   const formErrorValidation = () => {
     const err = {};
-    if (schoolData.school_name === "") {
-      err.school_nameError = "School Name is required.";
+    if (schoolData.school_name === '') {
+      err.school_nameError = 'School Name is required.';
     } else if (
       schoolData.school_name.length < 2 ||
       schoolData.school_name.length > 12
     ) {
-      err.school_nameError = "School name must be between 2-12 characters.";
-    } else if (schoolData.board === "") {
-      err.boardError = "Board name is required.";
+      err.school_nameError = 'School name must be between 2-12 characters.';
+    } else if (schoolData.board === '') {
+      err.boardError = 'Board name is required.';
     } else if (schoolData.board.length < 2 || schoolData.board.length > 12) {
-      err.boardError = "Board name must be between 2-12 characters.";
-    } else if (schoolData.city === "") {
-      err.cityError = "city name is required.";
+      err.boardError = 'Board name must be between 2-12 characters.';
+    } else if (schoolData.city === '') {
+      err.cityError = 'city name is required.';
     } else if (schoolData.city.length < 2 || schoolData.city.length > 12) {
-      err.cityError = "city name must be between 2-12 characters.";
-    } else if (schoolData.address === "") {
-      err.addressError = "city name is required.";
-    } else if (
-      schoolData.address.length < 2 ||
-      schoolData.address.length > 12
-    ) {
-      err.addressError = "city name must be between 2-12 characters.";
-    } else if (schoolData.userName === "") {
-      err.userNameError = "User name is required.";
+      err.cityError = 'city name must be between 2-12 characters.';
+    } else if (schoolData.address === '') {
+      err.addressError = 'Address is required.';
+    } else if (schoolData.userName === '') {
+      err.userNameError = 'User name is required.';
     } else if (/\S+@\S+\.\S+/.test(schoolData.userName)) {
-      err.userNameError = "User name should be only alphanumeric.";
+      err.userNameError = 'User name should be only alphanumeric.';
     }
     setErrors(err);
     if (Object.keys(err).length === 0) return true;
@@ -159,18 +129,9 @@ export default function TypographyPage() {
 
     setSchoolData({
       ...schoolData,
-      [name]: value,
+      [name]: value
     });
   };
-
-  // useEffect((value) => {
-  //   setSchoolData({
-  //     ...schoolData,
-  //     [name]: value,
-  //   });
-  //   // axios.post(URL, schoolData).then((response) => console.log(response));
-  //   // empty dependency array means this effect will only run once (like componentDidMount in classes)
-  // }, []);
 
   return (
     <Card>

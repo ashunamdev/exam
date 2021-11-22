@@ -47,6 +47,11 @@ export default function AdminNavbarLinks() {
   const handleCloseProfile = () => {
     setOpenProfile(null);
   };
+  const handleLogout = () => {
+    setOpenProfile(null);
+    localStorage.removeItem("user");
+    window.location.href = "/";
+  };
   return (
     <div>
       <div className={classes.searchWrapper}>
@@ -207,7 +212,7 @@ export default function AdminNavbarLinks() {
                     </MenuItem>
                     <Divider light />
                     <MenuItem
-                      onClick={handleCloseProfile}
+                      onClick={handleLogout}
                       className={classes.dropdownItem}
                     >
                       Logout
