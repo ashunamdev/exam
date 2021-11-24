@@ -9,8 +9,8 @@ import MaterialTable from 'material-table';
 
 import axios from 'axios';
 
-export default function QuestionList() {
-  const [questionList, setQuestionList] = useState([]);
+export default function ExamList() {
+  const [examList, setExamList] = useState([]);
 
   useEffect(() => {
     populateStudentList();
@@ -27,7 +27,7 @@ export default function QuestionList() {
           }
         })
         .then((res) => {
-          setQuestionList(res.data.data);
+          setExamList(res.data.data);
           console.log('RESPONSE ==== : ', res);
           // console.log('RESPONSE ==== : ', schoolList);
         })
@@ -83,14 +83,14 @@ export default function QuestionList() {
           <CardBody>
             <MaterialTable
               title="Question Details"
-              data={questionList}
+              data={examList}
               columns={columns}
               options={{
                 filtering: true,
-                 selection: true,
-                selectionProps: rowData => ({
-                disabled: rowData.name === 'Mehmet',
-                color: 'primary'
+                selection: true,
+                selectionProps: (rowData) => ({
+                  disabled: rowData.name === 'Mehmet',
+                  color: 'primary'
                 })
               }}
             />

@@ -37,6 +37,7 @@ import QuestionForm from 'views/Exam/QuestionForm.js';
 import QuestionList from 'views/Exam/QuestionList.js';
 import BatchList from 'views/Batch/BatchList'
 import BatchForm from "views/Batch/BatchForm";
+import CreateExam from "views/Exam/CreateExam";
 // import StudentRegister from "views/StudentList/StudentRegister";
 // import Icons from "views/Icons/Icons.js";
 // import Maps from "views/Maps/Maps.js";
@@ -93,6 +94,13 @@ const dashboardRoutes = [
     name: 'Add Question Section',
     icon: LibraryBooks,
     component: QuestionForm,
+    layout: '/admin'
+  },
+  {
+    path: '/createExam',
+    name: 'Create Exam',
+    icon: 'content_paste',
+    component: CreateExam,
     layout: '/admin'
   },
   {
