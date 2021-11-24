@@ -33,6 +33,10 @@ import TeacherRegister from 'views/TeacherList/TeacherRegister';
 import SchoolList from "views/SchoolList/SchoolList.js";
 import TeacherList from "views/TeacherList/TeacherList.js";
 import Typography from "views/Typography/Typography.js";
+import QuestionForm from 'views/Exam/QuestionForm.js';
+import QuestionList from 'views/Exam/QuestionList.js';
+import BatchList from 'views/Batch/BatchList'
+import BatchForm from "views/Batch/BatchForm";
 // import StudentRegister from "views/StudentList/StudentRegister";
 // import Icons from "views/Icons/Icons.js";
 // import Maps from "views/Maps/Maps.js";
@@ -78,6 +82,20 @@ const dashboardRoutes = [
     layout: '/admin'
   },
   {
+    path: '/add-batch',
+    name: 'Add Batch Section',
+    icon: LibraryBooks,
+    component: BatchForm,
+    layout: '/admin'
+  },
+  {
+    path: '/add-question',
+    name: 'Add Question Section',
+    icon: LibraryBooks,
+    component: QuestionForm,
+    layout: '/admin'
+  },
+  {
     path: '/SchoolList',
     name: 'School List',
     icon: 'content_paste',
@@ -96,6 +114,20 @@ const dashboardRoutes = [
     name: 'StudentList',
     icon: 'content_paste',
     component: StudentList,
+    layout: '/admin'
+  },
+  {
+    path: '/questionList',
+    name: 'QuestionList',
+    icon: 'content_paste',
+    component: QuestionList,
+    layout: '/admin'
+  },
+  {
+    path: '/batchList',
+    name: 'Batch List',
+    icon: 'content_paste',
+    component: BatchList,
     layout: '/admin'
   }
   // {
