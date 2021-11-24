@@ -53,82 +53,81 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function TypographyPage() {
+export default function TeacherRegister() {
   const classes = useStyles();
   const [errors, setErrors] = useState({});
-  const [schoolData, setSchoolData] = useState({
+  const [teacherData, setTeacherData] = useState({
     username: '',
     password: '',
     confirm_password: '',
-    school_name: '',
-    board: '',
-    city: '',
-    address: '',
-    contact_person: ''
+    full_name: '',
+    student_class: '',
+    gender: '',
+    roll_no: '',
+    batch: ''
   });
 
   const handleChange = () => {
     var userData = JSON.parse(window.localStorage.getItem('user'));
 
-    if (formErrorValidation()) {
-      console.log('schoolData', schoolData);
-      
-      axios
-        .post(
-          'http://3.139.234.205/school-register/',
-
-          schoolData,
-          {
-            headers: {
-              Authorization: `JWT ` + userData?.token
-            }
+    // if (formErrorValidation()) {
+    console.log('teacherData', teacherData);
+    axios
+      .post(
+        'http://3.139.234.205/teacher-register/',
+          teacherData
+        ,
+        {
+          headers: {
+            Authorization: `JWT ` + userData?.token
           }
-        )
-        .then((res) => {
-          alert(res?.message);
-          console.log('RESPONSE ==== : ', res);
-        })
-        .catch((err) => {
-          alert('something want to wrong');
-          console.log('ERROR: ====', err);
-        });
-    }
+        }
+      )
+      .then((res) => {
+        alert(res?.message);
+        console.log('RESPONSE ==== : ', res);
+      })
+      .catch((err) => {
+        alert('something want to wrong');
+        console.log('ERROR: ====', err);
+      });
+    // }
   };
 
   const formErrorValidation = () => {
     const err = {};
-    if (schoolData.school_name === '') {
-      err.school_nameError = 'School Name is required.';
-    } else if (
-      schoolData.school_name.length < 2 ||
-      schoolData.school_name.length > 12
-    ) {
-      err.school_nameError = 'School name must be between 2-12 characters.';
-    } else if (schoolData.board === '') {
-      err.boardError = 'Board name is required.';
-    } else if (schoolData.board.length < 2 || schoolData.board.length > 12) {
-      err.boardError = 'Board name must be between 2-12 characters.';
-    } else if (schoolData.city === '') {
-      err.cityError = 'city name is required.';
-    } else if (schoolData.city.length < 2 || schoolData.city.length > 12) {
-      err.cityError = 'city name must be between 2-12 characters.';
-    } else if (schoolData.address === '') {
-      err.addressError = 'Address is required.';
-    } else if (schoolData.userName === '') {
-      err.userNameError = 'User name is required.';
-    } else if (/\S+@\S+\.\S+/.test(schoolData.userName)) {
-      err.userNameError = 'User name should be only alphanumeric.';
-    }
+    // if (studentData.school_name === '') {
+    //   err.school_nameError = 'School Name is required.';
+    // } else if (
+    //   studentData.school_name.length < 2 ||
+    //   studentData.school_name.length > 12
+    // ) {
+    //   err.school_nameError = 'School name must be between 2-12 characters.';
+    // } else if (studentData.board === '') {
+    //   err.boardError = 'Board name is required.';
+    // } else if (studentData.board.length < 2 || studentData.board.length > 12) {
+    //   err.boardError = 'Board name must be between 2-12 characters.';
+    // } else if (studentData.city === '') {
+    //   err.cityError = 'city name is required.';
+    // } else if (studentData.city.length < 2 || studentData.city.length > 12) {
+    //   err.cityError = 'city name must be between 2-12 characters.';
+    // } else if (studentData.address === '') {
+    //   err.addressError = 'Address is required.';
+    // } else if (studentData.userName === '') {
+    //   err.userNameError = 'User name is required.';
+    // } else if (/\S+@\S+\.\S+/.test(studentData.userName)) {
+    //   err.userNameError = 'User name should be only alphanumeric.';
+    // }
     setErrors(err);
     if (Object.keys(err).length === 0) return true;
     else return false;
   };
-
+  console.log(formErrorValidation);
   const setForm = (event) => {
     let { name, value } = event.target;
 
-    setSchoolData({
-      ...schoolData,
+    setTeacherData({
+      ...teacherData,
       [name]: value
     });
   };
@@ -136,16 +135,16 @@ export default function TypographyPage() {
   return (
     <Card>
       <CardHeader color="primary">
-        <h4 className={classes.cardTitleWhite}>Add School </h4>
+        <h4 className={classes.cardTitleWhite}>Add Teacher </h4>
         <p className={classes.cardCategoryWhite}>Fill all Fileds</p>
       </CardHeader>
       <CardBody>
         <div className={classes.typo}>
-          <div className={classes.note}>School Name</div>
+          <div className={classes.note}>User Name</div>
           <input
             type="text"
-            name="school_name"
-            placeholder="Enter School name"
+            name="username"
+            placeholder="Enter username name"
             onChange={(e) => setForm(e)}
           />
           <div>
@@ -155,72 +154,44 @@ export default function TypographyPage() {
           </div>
         </div>
         <div className={classes.typo}>
-          <div className={classes.note}>Board</div>
+          <div className={classes.note}>teacher_name</div>
           <input
             type="text"
-            name="board"
-            placeholder="Enter Board type"
+            name="teacher_name"
+            placeholder="Enter teacher_name type"
             onChange={(e) => setForm(e)}
           />
           <div>
-            {errors.boardError && (
-              <p className="error_productForm">{errors.boardError}</p>
+            {errors.teacher_nameError && (
+              <p className="error_productForm">{errors.teacher_nameError}</p>
             )}
           </div>
         </div>
         <div className={classes.typo}>
-          <div className={classes.note}>City</div>
+          <div className={classes.note}>gender</div>
           <input
             type="text"
-            name="city"
-            placeholder="Enter City name"
+            name="gender"
+            placeholder="Enter gender"
             onChange={(e) => setForm(e)}
           />
           <div>
-            {errors.cityError && (
-              <p className="error_productForm">{errors.cityError}</p>
+            {errors.genderError && (
+              <p className="error_productForm">{errors.genderError}</p>
             )}
           </div>
         </div>
         <div className={classes.typo}>
-          <div className={classes.note}>Address</div>
+          <div className={classes.note}>Contact Number</div>
           <input
             type="text"
-            name="address"
-            placeholder="Enter Address"
+            name="contact_no"
+            placeholder="Enter contact_no name"
             onChange={(e) => setForm(e)}
           />
           <div>
-            {errors.firstNameError && (
-              <p className="error_productForm">{errors.firstNameError}</p>
-            )}
-          </div>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>Contact Person</div>
-          <input
-            type="text"
-            name="contact_person"
-            placeholder="Enter Contact Person's name"
-            onChange={(e) => setForm(e)}
-          />
-          <div>
-            {errors.firstNameError && (
-              <p className="error_productForm">{errors.firstNameError}</p>
-            )}
-          </div>
-        </div>
-        <div className={classes.typo}>
-          <div className={classes.note}>User Name</div>
-          <input
-            type="text"
-            name="username"
-            placeholder="Enter User name"
-            onChange={(e) => setForm(e)}
-          />
-          <div>
-            {errors.firstNameError && (
-              <p className="error_productForm">{errors.firstNameError}</p>
+            {errors.contact_noError && (
+              <p className="error_productForm">{errors.contact_noError}</p>
             )}
           </div>
         </div>
@@ -233,8 +204,8 @@ export default function TypographyPage() {
             onChange={(e) => setForm(e)}
           />
           <div>
-            {errors.firstNameError && (
-              <p className="error_productForm">{errors.firstNameError}</p>
+            {errors.passwordError && (
+              <p className="error_productForm">{errors.passwordError}</p>
             )}
           </div>
         </div>
@@ -247,8 +218,10 @@ export default function TypographyPage() {
             onChange={(e) => setForm(e)}
           />
           <div>
-            {errors.firstNameError && (
-              <p className="error_productForm">{errors.firstNameError}</p>
+            {errors.confirm_passwordError && (
+              <p className="error_productForm">
+                {errors.confirm_passwordError}
+              </p>
             )}
           </div>
         </div>

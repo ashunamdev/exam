@@ -27,10 +27,13 @@ import LibraryBooks from "@material-ui/icons/LibraryBooks";
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import UserProfile from "views/UserProfile/UserProfile.js";
-import StudentList from "views/StudentList/StudentList.js";
+import StudentList from 'views/StudentList/StudentList.js';
+import StudentRegister from 'views/StudentList/StudentRegister';
+import TeacherRegister from 'views/TeacherList/TeacherRegister';
 import SchoolList from "views/SchoolList/SchoolList.js";
 import TeacherList from "views/TeacherList/TeacherList.js";
 import Typography from "views/Typography/Typography.js";
+// import StudentRegister from "views/StudentList/StudentRegister";
 // import Icons from "views/Icons/Icons.js";
 // import Maps from "views/Maps/Maps.js";
 // import NotificationsPage from "views/Notifications/Notifications.js";
@@ -40,53 +43,61 @@ import Typography from "views/Typography/Typography.js";
 
 const dashboardRoutes = [
   {
-    path: "/dashboard",
-    name: "Dashboard",
-    rtlName: "لوحة القيادة",
+    path: '/dashboard',
+    name: 'Dashboard',
     icon: Dashboard,
     component: DashboardPage,
-    layout: "/admin",
+    layout: '/admin'
   },
   {
-    path: "/user",
-    name: "User Profile",
-    rtlName: "ملف تعريفي للمستخدم",
+    path: '/user',
+    name: 'User Profile',
     icon: Person,
     component: UserProfile,
-    layout: "/admin",
+    layout: '/admin'
   },
   {
-    path: "/typography",
-    name: "Add School Section",
-    rtlName: "طباعة",
+    path: '/typography',
+    name: 'Add School Section',
     icon: LibraryBooks,
     component: Typography,
-    layout: "/admin",
+    layout: '/admin'
   },
   {
-    path: "/SchoolList",
-    name: "School List",
-    rtlName: "قائمة الجدول",
-    icon: "content_paste",
+    path: '/student-register',
+    name: 'Add Student Section',
+    icon: LibraryBooks,
+    component: StudentRegister,
+    layout: '/admin'
+  },
+  {
+    path: '/teacher-register',
+    name: 'Add Teacher Section',
+    icon: LibraryBooks,
+    component: TeacherRegister,
+    layout: '/admin'
+  },
+  {
+    path: '/SchoolList',
+    name: 'School List',
+    icon: 'content_paste',
     component: SchoolList,
-    layout: "/admin",
+    layout: '/admin'
   },
   {
-    path: "/TeacherList",
-    name: "Teacher List",
-    rtlName: "قائمة الجدول",
-    icon: "content_paste",
+    path: '/TeacherList',
+    name: 'Teacher List',
+    icon: 'content_paste',
     component: TeacherList,
-    layout: "/admin",
+    layout: '/admin'
   },
   {
-    path: "/StudentList",
-    name: "StudentList",
-    rtlName: "قائمة الجدول",
-    icon: "content_paste",
+    path: '/StudentList',
+    name: 'StudentList',
+    icon: 'content_paste',
     component: StudentList,
-    layout: "/admin",
-  },
+    layout: '/admin'
+  }
   // {
   //   path: "/icons",
   //   name: "Icons",
