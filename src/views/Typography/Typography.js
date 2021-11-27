@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 // @material-ui/core components
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 // core components
 // import Quote from "components/Typography/Quote.js";
 // import Muted from "components/Typography/Muted.js";
@@ -10,45 +10,45 @@ import { makeStyles } from '@material-ui/core/styles';
 // import Success from "components/Typography/Success.js";
 // import Warning from "components/Typography/Warning.js";
 // import Danger from "components/Typography/Danger.js";
-import Card from 'components/Card/Card.js';
-import CardHeader from 'components/Card/CardHeader.js';
-import CardBody from 'components/Card/CardBody.js';
+import Card from "components/Card/Card.js";
+import CardHeader from "components/Card/CardHeader.js";
+import CardBody from "components/Card/CardBody.js";
 
 const styles = {
   typo: {
-    paddingLeft: '25%',
-    marginBottom: '40px',
-    position: 'relative'
+    paddingLeft: "25%",
+    marginBottom: "40px",
+    position: "relative",
   },
   note: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    bottom: '10px',
-    color: '#c0c1c2',
-    display: 'block',
-    fontWeight: '400',
-    fontSize: '13px',
-    lineHeight: '13px',
-    left: '0',
-    marginLeft: '20px',
-    position: 'absolute',
-    width: '260px'
+    bottom: "10px",
+    color: "#c0c1c2",
+    display: "block",
+    fontWeight: "400",
+    fontSize: "13px",
+    lineHeight: "13px",
+    left: "0",
+    marginLeft: "20px",
+    position: "absolute",
+    width: "260px",
   },
   cardCategoryWhite: {
-    color: 'rgba(255,255,255,.62)',
-    margin: '0',
-    fontSize: '14px',
-    marginTop: '0',
-    marginBottom: '0'
+    color: "rgba(255,255,255,.62)",
+    margin: "0",
+    fontSize: "14px",
+    marginTop: "0",
+    marginBottom: "0",
   },
   cardTitleWhite: {
-    color: '#FFFFFF',
-    marginTop: '0px',
-    minHeight: 'auto',
-    fontWeight: '300',
+    color: "#FFFFFF",
+    marginTop: "0px",
+    minHeight: "auto",
+    fontWeight: "300",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: '3px',
-    textDecoration: 'none'
-  }
+    marginBottom: "3px",
+    textDecoration: "none",
+  },
 };
 
 const useStyles = makeStyles(styles);
@@ -57,67 +57,68 @@ export default function TypographyPage() {
   const classes = useStyles();
   const [errors, setErrors] = useState({});
   const [schoolData, setSchoolData] = useState({
-    username: '',
-    password: '',
-    confirm_password: '',
-    school_name: '',
-    board: '',
-    city: '',
-    address: '',
-    contact_person: ''
+    username: "",
+    password: "",
+    confirm_password: "",
+    school_name: "",
+    board: "",
+    city: "",
+    address: "",
+    contact_person: "",
   });
 
   const handleChange = () => {
-    var userData = JSON.parse(window.localStorage.getItem('user'));
+    var userData = JSON.parse(window.localStorage.getItem("user"));
 
     if (formErrorValidation()) {
-      console.log('schoolData', schoolData);
-      
+      console.log("schoolData", schoolData);
+
       axios
         .post(
-          'http://3.139.234.205/school-register/',
+          "http://3.139.234.205/school-register/",
 
           schoolData,
           {
             headers: {
-              Authorization: `JWT ` + userData?.token
-            }
+              Authorization: `JWT ` + userData?.token,
+            },
           }
         )
         .then((res) => {
           alert(res?.message);
-          console.log('RESPONSE ==== : ', res);
+          console.log("RESPONSE ==== : ", res);
         })
         .catch((err) => {
-          alert('something want to wrong');
-          console.log('ERROR: ====', err);
+          alert("something want to wrong");
+          console.log("ERROR: ====", err);
         });
     }
   };
 
   const formErrorValidation = () => {
     const err = {};
-    if (schoolData.school_name === '') {
-      err.school_nameError = 'School Name is required.';
-    } else if (
-      schoolData.school_name.length < 2 ||
-      schoolData.school_name.length > 12
-    ) {
-      err.school_nameError = 'School name must be between 2-12 characters.';
-    } else if (schoolData.board === '') {
-      err.boardError = 'Board name is required.';
-    } else if (schoolData.board.length < 2 || schoolData.board.length > 12) {
-      err.boardError = 'Board name must be between 2-12 characters.';
-    } else if (schoolData.city === '') {
-      err.cityError = 'city name is required.';
-    } else if (schoolData.city.length < 2 || schoolData.city.length > 12) {
-      err.cityError = 'city name must be between 2-12 characters.';
-    } else if (schoolData.address === '') {
-      err.addressError = 'Address is required.';
-    } else if (schoolData.userName === '') {
-      err.userNameError = 'User name is required.';
+    if (schoolData.school_name === "") {
+      err.school_nameError = "School Name is required.";
+    } else if (schoolData.board === "") {
+      err.boardError = "Board name is required.";
+    } else if (schoolData.city === "") {
+      err.cityError = "city name is required.";
+    } else if (schoolData.address === "") {
+      err.addressError = "Address is required.";
+    } else if (schoolData.userName === "") {
+      err.userNameError = "User name is required.";
     } else if (/\S+@\S+\.\S+/.test(schoolData.userName)) {
-      err.userNameError = 'User name should be only alphanumeric.';
+      err.userNameError = "User name should be only alphanumeric.";
+    } else if (schoolData.password === "") {
+      err.passwordError = "password is required.";
+    } else if (schoolData.confirm_password === "") {
+      err.confirm_passwordError = "confirm_password is required.";
+    } else if (
+      schoolData.confirm_password != null &&
+      schoolData.password != null &&
+      schoolData.confirm_password != schoolData.password
+    ) {
+      err.confirm_passwordError = "Both password is not match.";
     }
     setErrors(err);
     if (Object.keys(err).length === 0) return true;
@@ -129,7 +130,7 @@ export default function TypographyPage() {
 
     setSchoolData({
       ...schoolData,
-      [name]: value
+      [name]: value,
     });
   };
 

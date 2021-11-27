@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 // @material-ui/core components
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 // core components
 // import Quote from "components/Typography/Quote.js";
 // import Muted from "components/Typography/Muted.js";
@@ -10,45 +10,45 @@ import { makeStyles } from '@material-ui/core/styles';
 // import Success from "components/Typography/Success.js";
 // import Warning from "components/Typography/Warning.js";
 // import Danger from "components/Typography/Danger.js";
-import Card from 'components/Card/Card.js';
-import CardHeader from 'components/Card/CardHeader.js';
-import CardBody from 'components/Card/CardBody.js';
+import Card from "components/Card/Card.js";
+import CardHeader from "components/Card/CardHeader.js";
+import CardBody from "components/Card/CardBody.js";
 
 const styles = {
   typo: {
-    paddingLeft: '25%',
-    marginBottom: '40px',
-    position: 'relative'
+    paddingLeft: "25%",
+    marginBottom: "40px",
+    position: "relative",
   },
   note: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    bottom: '10px',
-    color: '#c0c1c2',
-    display: 'block',
-    fontWeight: '400',
-    fontSize: '13px',
-    lineHeight: '13px',
-    left: '0',
-    marginLeft: '20px',
-    position: 'absolute',
-    width: '260px'
+    bottom: "10px",
+    color: "#c0c1c2",
+    display: "block",
+    fontWeight: "400",
+    fontSize: "13px",
+    lineHeight: "13px",
+    left: "0",
+    marginLeft: "20px",
+    position: "absolute",
+    width: "260px",
   },
   cardCategoryWhite: {
-    color: 'rgba(255,255,255,.62)',
-    margin: '0',
-    fontSize: '14px',
-    marginTop: '0',
-    marginBottom: '0'
+    color: "rgba(255,255,255,.62)",
+    margin: "0",
+    fontSize: "14px",
+    marginTop: "0",
+    marginBottom: "0",
   },
   cardTitleWhite: {
-    color: '#FFFFFF',
-    marginTop: '0px',
-    minHeight: 'auto',
-    fontWeight: '300',
+    color: "#FFFFFF",
+    marginTop: "0px",
+    minHeight: "auto",
+    fontWeight: "300",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: '3px',
-    textDecoration: 'none'
-  }
+    marginBottom: "3px",
+    textDecoration: "none",
+  },
 };
 
 const useStyles = makeStyles(styles);
@@ -57,65 +57,67 @@ export default function TeacherRegister() {
   const classes = useStyles();
   const [errors, setErrors] = useState({});
   const [teacherData, setTeacherData] = useState({
-    username: '',
-    password: '',
-    confirm_password: '',
-    full_name: '',
-    student_class: '',
-    gender: '',
-    roll_no: '',
-    batch: ''
+    username: "",
+    password: "",
+    confirm_password: "",
+    teacher_name: "",
+    contact_no: "",
+    gender: "",
   });
 
   const handleChange = () => {
-    var userData = JSON.parse(window.localStorage.getItem('user'));
+    var userData = JSON.parse(window.localStorage.getItem("user"));
 
-    // if (formErrorValidation()) {
-    console.log('teacherData', teacherData);
-    axios
-      .post(
-        'http://3.139.234.205/teacher-register/',
-          teacherData
-        ,
-        {
+    if (formErrorValidation()) {
+      console.log("teacherData", teacherData);
+      axios
+        .post("http://3.139.234.205/teacher-register/", teacherData, {
           headers: {
-            Authorization: `JWT ` + userData?.token
-          }
-        }
-      )
-      .then((res) => {
-        alert(res?.message);
-        console.log('RESPONSE ==== : ', res);
-      })
-      .catch((err) => {
-        alert('something want to wrong');
-        console.log('ERROR: ====', err);
-      });
-    // }
+            Authorization: `JWT ` + userData?.token,
+          },
+        })
+        .then((res) => {
+          alert(res?.message);
+          console.log("RESPONSE ==== : ", res);
+        })
+        .catch((err) => {
+          alert("something want to wrong");
+          console.log("ERROR: ====", err);
+        });
+    }
   };
 
   const formErrorValidation = () => {
     const err = {};
-    // if (studentData.school_name === '') {
-    //   err.school_nameError = 'School Name is required.';
-    // } else if (
-    //   studentData.school_name.length < 2 ||
-    //   studentData.school_name.length > 12
-    // ) {
+    if (teacherData.teacher_name === "") {
+      err.teacher_nameError = "Teacher Name is required.";
+    } else if (teacherData.password === "") {
+      err.passwordError = "password is required.";
+    } else if (teacherData.confirm_password === "") {
+      err.confirm_passwordError = "confirm_password is required.";
+    } else if (
+      teacherData.confirm_password != null &&
+      teacherData.password != null &&
+      teacherData.confirm_password != teacherData.password
+    ) {
+      err.confirm_passwordError = "Both password is not match.";
+    }
+    // {
     //   err.school_nameError = 'School name must be between 2-12 characters.';
-    // } else if (studentData.board === '') {
+    // } else if (teacherData.board === '') {
     //   err.boardError = 'Board name is required.';
-    // } else if (studentData.board.length < 2 || studentData.board.length > 12) {
+    // } else if (teacherData.board.length < 2 || teacherData.board.length > 12) {
     //   err.boardError = 'Board name must be between 2-12 characters.';
-    // } else if (studentData.city === '') {
+    // } else if (teacherData.city === '') {
     //   err.cityError = 'city name is required.';
-    // } else if (studentData.city.length < 2 || studentData.city.length > 12) {
+    // } else if (teacherData.city.length < 2 || teacherData.city.length > 12) {
     //   err.cityError = 'city name must be between 2-12 characters.';
-    // } else if (studentData.address === '') {
+    // } else if (teacherData.address === '') {
     //   err.addressError = 'Address is required.';
-    // } else if (studentData.userName === '') {
-    //   err.userNameError = 'User name is required.';
-    // } else if (/\S+@\S+\.\S+/.test(studentData.userName)) {
+    else if (teacherData.userName === "") {
+      err.userNameError = "User name is required.";
+    }
+    //  else if (/\S+@\S+\.\S+/.test(teacherData.userName)) {
     //   err.userNameError = 'User name should be only alphanumeric.';
     // }
     setErrors(err);
@@ -128,7 +130,7 @@ export default function TeacherRegister() {
 
     setTeacherData({
       ...teacherData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -144,7 +146,7 @@ export default function TeacherRegister() {
           <input
             type="text"
             name="username"
-            placeholder="Enter username name"
+            placeholder="Enter user name"
             onChange={(e) => setForm(e)}
           />
           <div>
