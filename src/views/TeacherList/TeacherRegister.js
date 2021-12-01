@@ -49,6 +49,9 @@ const styles = {
     marginBottom: "3px",
     textDecoration: "none",
   },
+  select: {
+    width: "17%",
+  },
 };
 
 const useStyles = makeStyles(styles);
@@ -62,10 +65,11 @@ export default function TeacherRegister() {
     confirm_password: "",
     teacher_name: "",
     contact_no: "",
-    gender: "",
+    gender: "male",
   });
 
   const handleChange = () => {
+    console.log("teacherData", teacherData);
     var userData = JSON.parse(window.localStorage.getItem("user"));
 
     if (formErrorValidation()) {
@@ -171,12 +175,18 @@ export default function TeacherRegister() {
         </div>
         <div className={classes.typo}>
           <div className={classes.note}>gender</div>
-          <input
+          {/* <input
             type="text"
             name="gender"
             placeholder="Enter gender"
             onChange={(e) => setForm(e)}
           />
+           */}
+          <select id="gender" name="gender" onChange={(e) => setForm(e)} className={classes.select}>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+
           <div>
             {errors.genderError && (
               <p className="error_productForm">{errors.genderError}</p>
