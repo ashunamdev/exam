@@ -81,7 +81,7 @@ export default function QuestionForm() {
           },
         })
         .then((res) => {
-          alert(res?.message);
+          alert(res?.data.message);
           console.log("RESPONSE ==== : ", res);
         })
         .catch((err) => {
@@ -198,12 +198,23 @@ export default function QuestionForm() {
         <div className={classes.typo}>
           <div className={classes.note}>correct Answer</div>
 
-          <select name="correct_answer" className={classes.select}>
+          <select
+            name="correct_answer"
+            onChange={(e) => setForm(e)}
+            className={classes.select}
+          >
+            <option value="">Current Answer</option>
             <option value="a">A</option>
             <option value="b">B</option>
             <option value="c">C</option>
             <option value="d">D</option>
           </select>
+          {/* <input
+            type="text"
+            name="correct_answer"
+            placeholder="Enter correct_answer"
+            onChange={(e) => setForm(e)}
+          /> */}
           <div>
             {errors.correct_answerError && (
               <p className="error_productForm">{errors.correct_answerError}</p>

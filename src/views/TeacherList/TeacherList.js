@@ -21,7 +21,7 @@ export default function TeacherList() {
 
     const getData = async () => {
       axios
-        .get('http://3.139.234.205/get-teacher/', {
+        .post('http://3.139.234.205/get-teacher/', {
           headers: {
             Authorization: `JWT ` + userData?.token
           }

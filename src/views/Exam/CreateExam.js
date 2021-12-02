@@ -54,27 +54,32 @@ export default function CreateExam() {
   const classes = useStyles();
 
   const [errors, setErrors] = useState({});
+  const [batchList, setBatchList] = useState([]);
   const [questionData, setQuestionData] = useState({
     title: "",
     assessment_date: "",
     exam_time: "",
     duration: "",
     exam_status: "upcoming",
-    batch: "",
+    batch: [],
     teacher: "",
     questions: [],
   });
 
   const [questionList, setQuestionList] = useState([]);
   const [selectedQuestion, setSelectedQuestion] = useState([]);
+  const [teacherList, setTeacherList] = useState([]);
 
   useEffect(() => {
     populateStudentList();
+    populateBatchList();
+    populateTeacherList();
   }, []);
 
   const handleChangeform = () => {
-    console.log("selectedQuestion", selectedQuestion);
     var userData = JSON.parse(window.localStorage.getItem("user"));
+    console.log('userData', questionData);
+
     if (formErrorValidation()) {
       questionData.questions = selectedQuestion;
       axios
@@ -84,7 +89,7 @@ export default function CreateExam() {
           },
         })
         .then((res) => {
-          alert(res?.message);
+          alert(res?.data.message);
           console.log("RESPONSE ==== : ", res);
         })
         .catch((err) => {
@@ -143,6 +148,55 @@ export default function CreateExam() {
     };
     getData();
   };
+   const populateBatchList = () => {
+     var userData = JSON.parse(window.localStorage.getItem('user'));
+
+     const getBatchData = async () => {
+       axios
+         .post(
+           'http://3.139.234.205/get-batch/',
+           {},
+           {
+             headers: {
+               Authorization: `JWT ` + userData?.token
+             }
+           }
+         )
+         .then((res) => {
+           setBatchList(res.data.data);
+           console.log('RESPONSE setBatchList==== : ', res.data.data);
+           // console.log('RESPONSE ==== : ', schoolList);
+         })
+         .catch((err) => {
+           alert('something want to wrong in getting a questions.');
+           console.log('ERROR: ====', err);
+         });
+     };
+     getBatchData();
+   };
+
+      const populateTeacherList = () => {
+        var userData = JSON.parse(window.localStorage.getItem('user'));
+
+        const getTeacherData = async () => {
+            axios
+              .get('http://3.139.234.205/get-teacher/', {
+                headers: {
+                  Authorization: `JWT ` + userData?.token
+                }
+              })
+              .then((res) => {
+                setTeacherList(res.data.data);
+                console.log('RESPONSE ==== : ', res);
+                // console.log('RESPONSE ==== : ', schoolList);
+              })
+              .catch((err) => {
+                alert('something want to wrong');
+                console.log('ERROR: ====', err);
+              });
+        };
+        getTeacherData();
+      };
   const columns = [
     {
       title: "ID",
@@ -258,12 +312,23 @@ export default function CreateExam() {
           </div>
           <div className={classes.typo}>
             <div className={classes.note}>exam_status</div>
-            <input
+
+            <select
+              name="exam_status"
+              onChange={(e) => setForm(e)}
+              className={classes.select}
+            >
+              <option value="">Select status</option>
+              <option value="upcoming">Upcoming</option>
+              <option value="pending">Pending</option>
+              <option value="ongoing">Ongoing</option>
+            </select>
+            {/* <input
               type="text"
               name="exam_status"
               placeholder="Enter exam_status"
               onChange={(e) => setForm(e)}
-            />
+            /> */}
             <div>
               {errors.exam_statusError && (
                 <p className="error_productForm">{errors.exam_statusError}</p>
@@ -272,12 +337,21 @@ export default function CreateExam() {
           </div>
           <div className={classes.typo}>
             <div className={classes.note}>batch</div>
-            <input
-              type="text"
+            <select
               name="batch"
-              placeholder="Enter batch"
               onChange={(e) => setForm(e)}
-            />
+              className={classes.select}
+            >
+              <option value="">Select batch</option>
+
+              {batchList.map((item) => {
+                return (
+                  <option key={`userSelectOptionKey${item.id}`} value={item.id}>
+                    {item.name}
+                  </option>
+                );
+              })}
+            </select>
             <div>
               {errors.batchError && (
                 <p className="error_productForm">{errors.batchError}</p>
@@ -286,12 +360,27 @@ export default function CreateExam() {
           </div>
           <div className={classes.typo}>
             <div className={classes.note}>teacher</div>
-            <input
+            {/* <input
               type="text"
               name="teacher"
               placeholder="Enter teacher"
               onChange={(e) => setForm(e)}
-            />
+            /> */}
+            <select
+              name="teacher"
+              onChange={(e) => setForm(e)}
+              className={classes.select}
+            >
+              <option value="">Select Teacher</option>
+
+              {teacherList?.map((item) => {
+                return (
+                  <option key={`userSelectOptionKey${item.id}`} value={item.id}>
+                    {item.teacher_name}
+                  </option>
+                );
+              })}
+            </select>
             <div>
               {errors.teacherError && (
                 <p className="error_productForm">{errors.teacherError}</p>
@@ -324,9 +413,9 @@ export default function CreateExam() {
                   filtering: true,
                   selection: true,
                   selectionProps: (rowData) => ({
-                    disabled: rowData.name === "Mehmet",
-                    color: "primary",
-                  }),
+                    disabled: rowData.name === 'Mehmet',
+                    color: 'primary'
+                  })
                 }}
                 onSelectionChange={(rowData) =>
                   setSelectedQuestion(rowData.map((item) => item.id))
