@@ -159,27 +159,6 @@ let a = [
     icon: Person,
     component: UserProfile,
     layout: '/admin'
-  },
-  {
-    path: '/SchoolList',
-    name: 'School List',
-    icon: 'content_paste',
-    component: SchoolList,
-    layout: '/admin'
-  },
-  {
-    path: '/TeacherList',
-    name: 'Teacher List',
-    icon: 'content_paste',
-    component: TeacherList,
-    layout: '/admin'
-  },
-  {
-    path: '/StudentList',
-    name: 'StudentList',
-    icon: 'content_paste',
-    component: StudentList,
-    layout: '/admin'
   }
 ];
 let b = [];
@@ -193,6 +172,27 @@ if (userStorageData) {
         name: 'Add School Section',
         icon: LibraryBooks,
         component: Typography,
+        layout: '/admin'
+      },
+      {
+        path: '/SchoolList',
+        name: 'School List',
+        icon: 'content_paste',
+        component: SchoolList,
+        layout: '/admin'
+      },
+      {
+        path: '/TeacherList',
+        name: 'Teacher List',
+        icon: 'content_paste',
+        component: TeacherList,
+        layout: '/admin'
+      },
+      {
+        path: '/StudentList',
+        name: 'StudentList',
+        icon: 'content_paste',
+        component: StudentList,
         layout: '/admin'
       }
     ];
@@ -227,15 +227,12 @@ if (userStorageData) {
         layout: '/admin'
       },
       {
-        path: '/batchList',
-        name: 'Batch List',
+        path: '/TeacherList',
+        name: 'Teacher List',
         icon: 'content_paste',
-        component: BatchList,
+        component: TeacherList,
         layout: '/admin'
-      }
-    ];
-  } else if (userData?.user_type === 'teacher') {
-    b = [
+      },
       {
         path: '/add-question',
         name: 'Add Question Section',
@@ -249,7 +246,41 @@ if (userStorageData) {
         icon: 'content_paste',
         component: CreateExam,
         layout: '/admin'
+      },
+      {
+        path: '/batchList',
+        name: 'Batch List',
+        icon: 'content_paste',
+        component: BatchList,
+        layout: '/admin'
+      },
+      {
+        path: '/StudentList',
+        name: 'StudentList',
+        icon: 'content_paste',
+        component: StudentList,
+        layout: '/admin'
       }
+    ];
+  } else if (userData?.user_type === 'teacher') {
+    b = [
+      {
+        path: '/StudentList',
+        name: 'StudentList',
+        icon: 'content_paste',
+        component: StudentList,
+        layout: '/admin'
+      }
+    ];
+  } else if (userData?.user_type === 'student') {
+    b = [
+      // {
+      //   path: '/StudentList',
+      //   name: 'StudentList',
+      //   icon: 'content_paste',
+      //   component: StudentList,
+      //   layout: '/admin'
+      // }
     ];
   }
 }
