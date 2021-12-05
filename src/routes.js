@@ -38,6 +38,7 @@ import QuestionList from 'views/Exam/QuestionList.js';
 import BatchList from 'views/Batch/BatchList'
 import BatchForm from "views/Batch/BatchForm";
 import CreateExam from "views/Exam/CreateExam";
+import ExamList from 'views/Exam/ExamList';
 // import StudentRegister from "views/StudentList/StudentRegister";
 // import Icons from "views/Icons/Icons.js";
 // import Maps from "views/Maps/Maps.js";
@@ -260,6 +261,13 @@ if (userStorageData) {
         icon: 'content_paste',
         component: StudentList,
         layout: '/admin'
+      },
+      {
+        path: '/ExamList',
+        name: 'ExamList',
+        icon: 'content_paste',
+        component: ExamList,
+        layout: '/admin'
       }
     ];
   } else if (userData?.user_type === 'teacher') {
@@ -274,6 +282,7 @@ if (userStorageData) {
     ];
   } else if (userData?.user_type === 'student') {
     b = [
+      
       // {
       //   path: '/StudentList',
       //   name: 'StudentList',
@@ -281,6 +290,13 @@ if (userStorageData) {
       //   component: StudentList,
       //   layout: '/admin'
       // }
+      {
+        path: '/ExamList',
+        name: 'ExamList',
+        icon: 'content_paste',
+        component: ExamList,
+        layout: '/admin'
+      }
     ];
   }
 }

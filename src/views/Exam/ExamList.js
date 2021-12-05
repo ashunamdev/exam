@@ -21,7 +21,7 @@ export default function ExamList() {
 
     const getData = async () => {
       axios
-        .post('http://3.139.234.205/get-question/',{},{
+        .post('http://3.139.234.205/get-exam/',{},{
           headers: {
             Authorization: `JWT ` + userData?.token
           }
@@ -44,54 +44,82 @@ export default function ExamList() {
       field: 'id'
     },
     {
-      title: 'Question',
-      field: 'question'
+      title: 'Title',
+      field: 'title'
     },
     {
-      title: 'Option A',
-      field: 'option_a'
-    },
-    {
-      title: 'Option B',
-      field: 'option_b'
-    },
-    {
-      title: 'Option C',
-      field: 'option_c'
-    },
-    {
-      title: 'Option D',
-      field: 'option_d'
-    },
-    {
-      title: 'Correct Answer',
-      field: 'correct_answer'
-    },
-    {
-      title: 'school ',
-      field: 'school'
+      title: 'Assessment Date',
+      field: 'assessment_date'
     },
     {
       title: 'Batch',
       field: 'batch'
+    },
+    {
+      title: 'Duration',
+      field: 'duration'
+    },
+    {
+      title: 'Exam Status',
+      field: 'exam_status'
+    },
+    {
+      title: 'Exam Time',
+      field: 'exam_time'
+    },
+    {
+      title: 'School',
+      field: 'school'
+    },
+    {
+      title: 'Teacher ',
+      field: 'teacher'
+    },
+    {
+      title: 'Questions ',
+      field: 'questions'
     }
   ];
+
+  const handleExamFun = (rowData) => {
+    let userStorageData = localStorage.getItem('user') 
+if (userStorageData) {
+  let userData =  JSON.parse(userStorageData);
+  if (userData?.user_type === 'teacher' || userData?.user_type === 'school') {
+    confirm('Hello Teacher, You want to Start exam ' + rowData.title);
+  } else if (userData?.user_type === 'student') {
+    confirm('HI Student, You want to Start exam ' + rowData.title);
+  }else {
+    confirm('Something went to wrong');
+
+  }
+}
+  };
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardBody>
             <MaterialTable
-              title="Question Details"
+              title="Exam Details"
               data={examList}
               columns={columns}
+              actions={[
+                {
+                  icon: 'monitor',
+                  tooltip: 'Start Exam',
+                  onClick: (event, rowData) =>{
+                    handleExamFun(rowData);
+                  }
+                }
+              ]}
               options={{
-                filtering: true,
-                selection: true,
-                selectionProps: (rowData) => ({
-                  disabled: rowData.name === 'Mehmet',
-                  color: 'primary'
-                })
+                filtering: true
+                // selection: true,
+                // selectionProps: (rowData) => ({
+                //   disabled: rowData.name === 'Mehmet',
+                //   color: 'primary'
+                // })
               }}
             />
           </CardBody>
