@@ -6,6 +6,7 @@ import GridContainer from 'components/Grid/GridContainer.js';
 import Card from 'components/Card/Card.js';
 import CardBody from 'components/Card/CardBody.js';
 import MaterialTable from 'material-table';
+import { BASE_URL } from '../../utils/constant'
 
 import axios from 'axios';
 
@@ -21,13 +22,21 @@ export default function QuestionList() {
 
     const getData = async () => {
       axios
-        .post('http://3.139.234.205/get-question/',{},{
-          headers: {
-            Authorization: `JWT ` + userData?.token
+        .post(
+          `${BASE_URL}get-question/`,
+          {},
+          {
+            headers: {
+              Authorization: `JWT ` + userData?.token
+            }
           }
-        })
+        )
         .then((res) => {
           setQuestionList(res.data.data);
+          // if(res.data.stuts){
+          // }else{
+          //   alert(res.data.message)
+          // }
           console.log('RESPONSE ==== : ', res);
           // console.log('RESPONSE ==== : ', schoolList);
         })

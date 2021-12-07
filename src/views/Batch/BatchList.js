@@ -8,6 +8,7 @@ import CardBody from 'components/Card/CardBody.js';
 import MaterialTable from 'material-table';
 
 import axios from 'axios';
+import { BASE_URL } from 'utils/constant';
 
 export default function BatchList() {
   const [batchList, setBatchList] = useState([]);
@@ -22,7 +23,7 @@ export default function BatchList() {
     const getData = async () => {
       axios
         .post(
-          'http://3.139.234.205/get-batch/',
+          `${BASE_URL}get-batch/`,
           {},
           {
             headers: {

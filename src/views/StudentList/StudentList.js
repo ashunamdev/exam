@@ -8,6 +8,7 @@ import CardBody from 'components/Card/CardBody.js';
 import MaterialTable from 'material-table';
 
 import axios from 'axios';
+import { BASE_URL } from 'utils/constant';
 
 export default function StudentList() {
   const [studentList, setStudentList] = useState([]);
@@ -21,7 +22,7 @@ export default function StudentList() {
 
     const getData = async () => {
       axios
-        .get('http://3.139.234.205/get-student/', {
+        .get(`${BASE_URL}get-student/`, {
           headers: {
             Authorization: `JWT ` + userData?.token
           }

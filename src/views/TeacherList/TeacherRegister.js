@@ -13,6 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
+import { BASE_URL } from "utils/constant";
 
 const styles = {
   typo: {
@@ -75,7 +76,7 @@ export default function TeacherRegister() {
     if (formErrorValidation()) {
       console.log("teacherData", teacherData);
       axios
-        .post("http://3.139.234.205/teacher-register/", teacherData, {
+        .post(`${BASE_URL}teacher-register/`, teacherData, {
           headers: {
             Authorization: `JWT ` + userData?.token,
           },

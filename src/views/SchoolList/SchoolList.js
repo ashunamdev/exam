@@ -9,6 +9,7 @@ import CardBody from 'components/Card/CardBody.js';
 import MaterialTable from 'material-table';
 
 import axios from 'axios';
+import { BASE_URL } from 'utils/constant';
 
 
 export default function SchoolList() {
@@ -23,7 +24,7 @@ export default function SchoolList() {
 
     const getData = async () => {
       axios
-        .get('http://3.139.234.205/get-school/', {
+        .get(`${BASE_URL}get-school/`, {
           headers: {
             Authorization: `JWT ` + userData?.token
           }

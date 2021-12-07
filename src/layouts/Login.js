@@ -8,6 +8,7 @@ import LoginPng from "../assets/img/login.png";
 import RTL from "layouts/RTL.js";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BASE_URL } from "utils/constant";
 
 // async function loginUser(credentials) {
 //  return fetch('http://3.139.234.205/login/', {
@@ -47,7 +48,7 @@ export default function Login({ setToken }) {
     e.preventDefault();
 
     axios
-      .post("http://3.139.234.205/login/", loginData)
+      .post(`${BASE_URL}login/`, loginData)
       .then((res) => {
         console.log("RESPONSE ==== : ", res);
         window.localStorage.setItem("user", JSON.stringify(res?.data));

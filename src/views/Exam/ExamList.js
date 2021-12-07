@@ -8,6 +8,7 @@ import CardBody from 'components/Card/CardBody.js';
 import MaterialTable from 'material-table';
 
 import axios from 'axios';
+import { BASE_URL } from 'utils/constant';
 
 export default function ExamList() {
   const [examList, setExamList] = useState([]);
@@ -21,7 +22,7 @@ export default function ExamList() {
 
     const getData = async () => {
       axios
-        .post('http://3.139.234.205/get-exam/',{},{
+        .post(`${BASE_URL}get-exam/`,{},{
           headers: {
             Authorization: `JWT ` + userData?.token
           }

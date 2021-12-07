@@ -10,6 +10,7 @@ import MaterialTable from "material-table";
 import { makeStyles } from "@material-ui/core/styles";
 
 import axios from "axios";
+import { BASE_URL } from "utils/constant";
 
 const styles = {
   typo: {
@@ -83,7 +84,7 @@ export default function CreateExam() {
     if (formErrorValidation()) {
       questionData.questions = selectedQuestion;
       axios
-        .post("http://3.139.234.205/add-exam/", questionData, {
+        .post(`${BASE_URL}add-exam/`, questionData, {
           headers: {
             Authorization: `JWT ` + userData?.token,
           },
@@ -128,7 +129,7 @@ export default function CreateExam() {
     const getData = async () => {
       axios
         .post(
-          "http://3.139.234.205/get-question/",
+          `${BASE_URL}get-question/`,
           {},
           {
             headers: {
@@ -154,7 +155,7 @@ export default function CreateExam() {
      const getBatchData = async () => {
        axios
          .post(
-           'http://3.139.234.205/get-batch/',
+           `${BASE_URL}get-batch/`,
            {},
            {
              headers: {
@@ -180,7 +181,7 @@ export default function CreateExam() {
 
         const getTeacherData = async () => {
             axios
-              .get('http://3.139.234.205/get-teacher/', {
+              .get(`${BASE_URL}get-teacher/`, {
                 headers: {
                   Authorization: `JWT ` + userData?.token
                 }

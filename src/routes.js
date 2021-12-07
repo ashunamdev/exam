@@ -278,6 +278,34 @@ if (userStorageData) {
         icon: 'content_paste',
         component: StudentList,
         layout: '/admin'
+      },
+      {
+        path: '/ExamList',
+        name: 'ExamList',
+        icon: 'content_paste',
+        component: ExamList,
+        layout: '/admin'
+      },
+      {
+        path: '/add-question',
+        name: 'Add Question Section',
+        icon: LibraryBooks,
+        component: QuestionForm,
+        layout: '/admin'
+      },
+      {
+        path: '/createExam',
+        name: 'Create Exam',
+        icon: 'content_paste',
+        component: CreateExam,
+        layout: '/admin'
+      },
+      {
+        path: '/questionList',
+        name: 'QuestionList',
+        icon: 'content_paste',
+        component: QuestionList,
+        layout: '/admin'
       }
     ];
   } else if (userData?.user_type === 'student') {
