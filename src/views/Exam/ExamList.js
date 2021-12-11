@@ -87,8 +87,10 @@ export default function ExamList() {
 if (userStorageData) {
   let userData =  JSON.parse(userStorageData);
   if (userData?.user_type === 'teacher' || userData?.user_type === 'school') {
+      window.open('https://rtc.decode-exam.com?id=6', '_blank');
     confirm('Hello Teacher, You want to Start exam ' + rowData.title);
   } else if (userData?.user_type === 'student') {
+      window.open('https://rtc.decode-exam.com?id=6', '_blank');
     confirm('HI Student, You want to Start exam ' + rowData.title);
   }else {
     confirm('Something went to wrong');
