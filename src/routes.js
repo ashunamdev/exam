@@ -25,20 +25,20 @@ import LibraryBooks from '@material-ui/icons/LibraryBooks';
 // import Unarchive from "@material-ui/icons/Unarchive";
 // import Language from "@material-ui/icons/Language";
 // core components/views for Admin layout
-import DashboardPage from 'views/Dashboard/Dashboard.js';
-import UserProfile from 'views/UserProfile/UserProfile.js';
-import StudentList from 'views/StudentList/StudentList.js';
+import DashboardPage from 'views/Dashboard/Dashboard.jsx';
+import UserProfile from 'views/UserProfile/UserProfile.jsx';
+import StudentList from 'views/StudentList/StudentList.jsx';
 import StudentRegister from 'views/StudentList/StudentRegister';
 import TeacherRegister from 'views/TeacherList/TeacherRegister';
-import SchoolList from "views/SchoolList/SchoolList.js";
-import TeacherList from "views/TeacherList/TeacherList.js";
-import Typography from "views/Typography/Typography.js";
-import QuestionForm from 'views/Exam/QuestionForm.js';
-import QuestionList from 'views/Exam/QuestionList.js';
-import BatchList from 'views/Batch/BatchList'
-import BatchForm from "views/Batch/BatchForm";
-import CreateExam from "views/Exam/CreateExam";
-import ExamList from 'views/Exam/ExamList';
+import SchoolList from 'views/SchoolList/SchoolList.jsx';
+import TeacherList from 'views/TeacherList/TeacherList.jsx';
+import Typography from "views/Typography/Typography.jsx";
+import QuestionForm from 'views/Exam/QuestionForm.jsx';
+import QuestionList from 'views/Exam/QuestionList.jsx';
+import BatchList from 'views/Batch/BatchList.jsx'
+import BatchForm from 'views/Batch/BatchForm.jsx';
+import CreateExam from 'views/Exam/CreateExam.jsx';
+import ExamList from 'views/Exam/ExamList.jsx';
 // import StudentRegister from "views/StudentList/StudentRegister";
 // import Icons from "views/Icons/Icons.js";
 // import Maps from "views/Maps/Maps.js";
@@ -169,28 +169,28 @@ if (userStorageData) {
   if (userData?.user_type === 'super_admin') {
     b = [
       {
-        path: '/typography',
+        path: '/school-register',
         name: 'Add School Section',
         icon: LibraryBooks,
         component: Typography,
         layout: '/admin'
       },
       {
-        path: '/SchoolList',
+        path: '/school-list',
         name: 'School List',
         icon: 'content_paste',
         component: SchoolList,
         layout: '/admin'
       },
       {
-        path: '/TeacherList',
+        path: '/teacher-list',
         name: 'Teacher List',
         icon: 'content_paste',
         component: TeacherList,
         layout: '/admin'
       },
       {
-        path: '/StudentList',
+        path: '/student-list',
         name: 'StudentList',
         icon: 'content_paste',
         component: StudentList,
@@ -214,56 +214,56 @@ if (userStorageData) {
         layout: '/admin'
       },
       {
-        path: '/add-batch',
+        path: '/batch-register',
         name: 'Add Batch Section',
         icon: LibraryBooks,
         component: BatchForm,
         layout: '/admin'
       },
       {
-        path: '/questionList',
+        path: '/question-list',
         name: 'QuestionList',
         icon: 'content_paste',
         component: QuestionList,
         layout: '/admin'
       },
       {
-        path: '/TeacherList',
+        path: '/teacher-list',
         name: 'Teacher List',
         icon: 'content_paste',
         component: TeacherList,
         layout: '/admin'
       },
       {
-        path: '/add-question',
+        path: '/question-register',
         name: 'Add Question Section',
         icon: LibraryBooks,
         component: QuestionForm,
         layout: '/admin'
       },
       {
-        path: '/createExam',
+        path: '/create-exam',
         name: 'Create Exam',
         icon: 'content_paste',
         component: CreateExam,
         layout: '/admin'
       },
       {
-        path: '/batchList',
+        path: '/batch-list',
         name: 'Batch List',
         icon: 'content_paste',
         component: BatchList,
         layout: '/admin'
       },
       {
-        path: '/StudentList',
+        path: '/student-list',
         name: 'StudentList',
         icon: 'content_paste',
         component: StudentList,
         layout: '/admin'
       },
       {
-        path: '/ExamList',
+        path: '/exam-list',
         name: 'ExamList',
         icon: 'content_paste',
         component: ExamList,
@@ -273,7 +273,7 @@ if (userStorageData) {
   } else if (userData?.user_type === 'teacher') {
     b = [
       {
-        path: '/StudentList',
+        path: '/student-list',
         name: 'StudentList',
         icon: 'content_paste',
         component: StudentList,

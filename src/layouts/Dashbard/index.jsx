@@ -2,8 +2,6 @@ import React from 'react';
 // creates a beautiful scrollbar
 import PerfectScrollbar from 'perfect-scrollbar';
 import 'perfect-scrollbar/css/perfect-scrollbar.css';
-import { Outlet } from 'react-router-dom';
-
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
 // core components
@@ -14,10 +12,12 @@ import FixedPlugin from 'components/FixedPlugin/FixedPlugin.js';
 
 import routes from 'routesfinal.js';
 
+
 import styles from 'assets/jss/material-dashboard-react/layouts/adminStyle.js';
-import './Admin.css';
+// import './Admin.css';
 import bgImage from 'assets/img/sidebar-2.jpg';
 import logo from 'assets/img/decodeExamLogo.png';
+import { Outlet } from 'react-router-dom';
 
 let ps;
 
@@ -72,10 +72,7 @@ export default function Admin({ ...rest }) {
       window.removeEventListener('resize', resizeFunction);
     };
   }, [mainPanel]);
-  let navigationLists = routes.filter((item) =>
-    item.parent.includes('school')
-  );
-
+  let navigationLists = routes.filter((item) => item.parent.includes('super_admin'));
   return (
     <div className={classes.wrapper}>
       <Sidebar

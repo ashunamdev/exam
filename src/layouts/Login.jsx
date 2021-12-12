@@ -3,11 +3,15 @@ import axios from "axios";
 import PropTypes from "prop-types";
 // import './login.css'
 import "./Login.css";
-import Admin from "layouts/Admin.js";
+// import Admin from "layouts/Admin.js";
 import LoginPng from "../assets/img/login.png";
-import RTL from "layouts/RTL.js";
-import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+// import RTL from "layouts/RTL.js";
+// import ReactDOM from "react-dom";
+// import {
+//   BrowserRouter,
+//   Route,
+//   Routes
+// } from 'react-router-dom';
 import { BASE_URL } from "utils/constant";
 
 // async function loginUser(credentials) {
@@ -37,12 +41,12 @@ export default function Login({ setToken }) {
     });
   };
 
-  React.useEffect(() => {
-    let data = window.localStorage.getItem("user");
-    if (data != null) {
-      handleRedirect();
-    }
-  });
+  // React.useEffect(() => {
+  //   let data = window.localStorage.getItem("user");
+  //   // if (data != null) {
+  //   //   handleRedirect();
+  //   // }
+  // });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,11 +54,14 @@ export default function Login({ setToken }) {
     axios
       .post(`${BASE_URL}login/`, loginData)
       .then((res) => {
+        window.location.reload();
+        location.reload();
+
         console.log("RESPONSE ==== : ", res);
         window.localStorage.setItem("user", JSON.stringify(res?.data));
         setTokenId(res?.token);
         setToken(tokenId);
-        handleRedirect();
+        // handleRedirect();
       })
       .catch((err) => {
         alert("username or password does not matched");
@@ -62,19 +69,19 @@ export default function Login({ setToken }) {
       });
   };
 
-  const handleRedirect = () => {
-    ReactDOM.render(
-      <BrowserRouter>
-        <Switch>
-          {/* <Route path="/App" component={App} /> */}
-          <Route path="/admin" component={Admin} />
-          <Route path="/rtl" component={RTL} />
-          <Redirect from="/" to="/admin" />
-        </Switch>
-      </BrowserRouter>,
-      document.getElementById("root")
-    );
-  };
+  // const handleRedirect = () => {
+  //   ReactDOM.render(
+  //     <BrowserRouter>
+  //       <Routes>
+  //         {/* <Route path="/App" component={App} /> */}
+  //         <Route path="/admin" component={Admin} />
+  //         <Route path="/rtl" component={RTL} />
+  //       </Routes>
+  //         {/* <Navigate from="/" to="/admin" /> */}
+  //     </BrowserRouter>,
+  //     document.getElementById('root')
+  //   );
+  // };
 
   return (
     <div className="login-wrapper">
