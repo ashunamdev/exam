@@ -1,1 +1,1 @@
-export const BASE_URL = 'http://3.139.234.205/';
+export const BASE_URL = 'https://api.decode-exam.com/';
