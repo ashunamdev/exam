@@ -29,14 +29,14 @@ const _nav = [
     icon: Dashboard,
     component: DashboardPage,
     layout: '/admin',
-    parent: ['teacher', 'school', 'student']
+    parent: ['teacher', 'school', 'student', 'super_admin']
   },
   {
     path: '/user',
     name: 'User Profile',
     icon: Person,
     component: UserProfile,
-    parent: ['teacher', 'school', 'student'],
+    parent: ['school', 'super_admin'],
     layout: '/admin'
   },
   {
@@ -44,7 +44,7 @@ const _nav = [
     name: 'Add School Section',
     icon: LibraryBooks,
     component: Typography,
-    parent: ['teacher', 'school', 'student', 'super_admin'],
+    parent: ['super_admin'],
     layout: '/admin'
   },
   {
@@ -52,7 +52,7 @@ const _nav = [
     name: 'School List',
     icon: 'content_paste',
     component: SchoolList,
-    parent: ['teacher', 'school', 'student', 'super_admin'],
+    parent: ['school', 'super_admin'],
     layout: '/admin'
   },
   {
@@ -60,7 +60,7 @@ const _nav = [
     name: 'Add Teacher Section',
     icon: LibraryBooks,
     component: TeacherRegister,
-    parent: ['teacher', 'school', 'student', 'super_admin'],
+    parent: ['school'],
     layout: '/admin'
   },
   {
@@ -68,7 +68,7 @@ const _nav = [
     name: 'Teacher List',
     icon: 'content_paste',
     component: TeacherList,
-    parent: ['teacher', 'school', 'student', 'super_admin'],
+    parent: ['school', 'super_admin'],
     layout: '/admin'
   },
   {
@@ -76,7 +76,7 @@ const _nav = [
     name: 'Add Student Section',
     icon: LibraryBooks,
     component: StudentRegister,
-    parent: ['teacher', 'school', 'student', 'super_admin'],
+    parent: ['school'],
     layout: '/admin'
   },
   {
@@ -84,7 +84,7 @@ const _nav = [
     name: 'StudentList',
     icon: 'content_paste',
     component: StudentList,
-    parent: ['teacher', 'school', 'student', 'super_admin'],
+    parent: ['teacher', 'school', 'super_admin'],
     layout: '/admin'
   },
 
@@ -93,7 +93,7 @@ const _nav = [
     name: 'Add Batch Section',
     icon: LibraryBooks,
     component: BatchForm,
-    parent: ['teacher', 'school', 'student', 'super_admin'],
+    parent: ['school'],
     layout: '/admin'
   },
   {
@@ -101,7 +101,7 @@ const _nav = [
     name: 'Batch List',
     icon: 'content_paste',
     component: BatchList,
-    parent: ['teacher', 'school', 'student', 'super_admin'],
+    parent: ['teacher', 'school'],
     layout: '/admin'
   },
   {
@@ -109,7 +109,7 @@ const _nav = [
     name: 'Add Question Section',
     icon: LibraryBooks,
     component: QuestionForm,
-    parent: ['teacher', 'school', 'student', 'super_admin'],
+    parent: ['teacher', 'school'],
     layout: '/admin'
   },
   {
@@ -117,7 +117,7 @@ const _nav = [
     name: 'QuestionList',
     icon: 'content_paste',
     component: QuestionList,
-    parent: ['teacher', 'school', 'student', 'super_admin'],
+    parent: ['teacher', 'school'],
     layout: '/admin'
   },
   {
@@ -125,7 +125,7 @@ const _nav = [
     name: 'Create Exam',
     icon: 'content_paste',
     component: CreateExam,
-    parent: ['teacher', 'school', 'student', 'super_admin'],
+    parent: ['teacher', 'school'],
     layout: '/admin'
   },
   {

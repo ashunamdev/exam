@@ -86,7 +86,9 @@ export default function TypographyPage() {
           }
         )
         .then((res) => {
-          alert(res?.message);
+          console.log('response', res.status)
+          res.data.status ? alert('Sucessfully Added') : alert(res.data?.message); 
+          
           console.log("RESPONSE ==== : ", res);
         })
         .catch((err) => {

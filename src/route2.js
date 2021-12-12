@@ -9,7 +9,7 @@ import Error404Page from './views/pages/404/index';
 import StudentList from './views/StudentList/StudentList';
 import SchoolList from './views/SchoolList/SchoolList';
 import TeacherList from './views/TeacherList/TeacherList';
-import Batchlist from './views/TeacherList/TeacherList';
+import Batchlist from './views/Batch/BatchList';
 // import MainLayout from './views/main-layout/index';
 // import TheLayout from "./components/containers/TheLayout";
 import DashboardLayout from './layouts/Dashbard/index';
@@ -20,6 +20,7 @@ import QuestionList from 'views/Exam/QuestionList';
 import QuestionForm from 'views/Exam/QuestionForm';
 import CreateExam from 'views/Exam/CreateExam';
 import ExamList from 'views/Exam/ExamList';
+import TypographyPage from 'views/Typography/Typography';
 // import Admin from 'layouts/Admin';
 // import MainLayout from './components/main-layout';
 
@@ -59,7 +60,7 @@ const Routes = () => {
         },
         {
           path: '/admin/school-register',
-          element: isAuth ? <StudentRegister /> : <Navigate to="/login" />
+          element: isAuth ? <TypographyPage /> : <Navigate to="/login" />
         },
         {
           path: '/admin/school-list',
@@ -107,7 +108,7 @@ const Routes = () => {
           element: isAuth ? <StudentList /> : <Navigate to="/login" />
         },
         {
-          path: '/admin/exam-lists',
+          path: '/admin/exam-list',
           element: isAuth ? <ExamList /> : <Navigate to="/login" />
         },
 

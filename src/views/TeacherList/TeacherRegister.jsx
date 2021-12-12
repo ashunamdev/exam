@@ -82,7 +82,7 @@ export default function TeacherRegister() {
           },
         })
         .then((res) => {
-          alert(res?.message);
+          alert(res.data?.message);
           console.log("RESPONSE ==== : ", res);
         })
         .catch((err) => {

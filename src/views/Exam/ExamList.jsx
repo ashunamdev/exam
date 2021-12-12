@@ -6,6 +6,7 @@ import GridContainer from 'components/Grid/GridContainer.js';
 import Card from 'components/Card/Card.js';
 import CardBody from 'components/Card/CardBody.js';
 import MaterialTable from 'material-table';
+import { connect } from '../../api/index';
 
 import axios from 'axios';
 import { BASE_URL } from 'utils/constant';
@@ -85,13 +86,19 @@ export default function ExamList() {
   const handleExamFun = (rowData) => {
     let userStorageData = localStorage.getItem('user') 
 if (userStorageData) {
+  console.log('rowdata', rowData);
   let userData =  JSON.parse(userStorageData);
   if (userData?.user_type === 'teacher' || userData?.user_type === 'school') {
-      window.open('https://rtc.decode-exam.com?id=6', '_blank');
-    confirm('Hello Teacher, You want to Start exam ' + rowData.title);
+    connect((message) => {
+      console.log(message);
+    });
+     if (confirm('Hello Teacher, You want to Start exam ' + rowData.title)) {
+       window.open(`https://rtc.decode-exam.com?id=${rowData.id}`, '_blank');
+     }
   } else if (userData?.user_type === 'student') {
-      window.open('https://rtc.decode-exam.com?id=6', '_blank');
-    confirm('HI Student, You want to Start exam ' + rowData.title);
+    if(confirm('HI Student, You want to Start exam ' + rowData.title)){
+      window.open(`https://rtc.decode-exam.com?id=${rowData.id}`, '_blank');
+    }
   }else {
     confirm('Something went to wrong');
 

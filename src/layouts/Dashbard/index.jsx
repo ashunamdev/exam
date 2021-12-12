@@ -17,7 +17,7 @@ import styles from 'assets/jss/material-dashboard-react/layouts/adminStyle.js';
 // import './Admin.css';
 import bgImage from 'assets/img/sidebar-2.jpg';
 import logo from 'assets/img/decodeExamLogo.png';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 let ps;
 
@@ -72,41 +72,55 @@ export default function Admin({ ...rest }) {
       window.removeEventListener('resize', resizeFunction);
     };
   }, [mainPanel]);
-  let navigationLists = routes.filter((item) => item.parent.includes('super_admin'));
-  return (
-    <div className={classes.wrapper}>
-      <Sidebar
-        routes={navigationLists}
-        logoText={'Decode Exam'}
-        logo={logo}
-        image={image}
-        handleDrawerToggle={handleDrawerToggle}
-        open={mobileOpen}
-        color={color}
-        {...rest}
-      />
-      <div className={classes.mainPanel} ref={mainPanel}>
-        <Navbar
+let user_type = null
+  let userStorageData = localStorage.getItem('user');
+  if (userStorageData) {
+    let userData = JSON.parse(userStorageData);
+
+    if (userData.status) {
+      user_type = userData.user_type;
+    }
+  }
+  if (!user_type) {
+    return <Navigate to={'/login'} />;
+  }
+  let navigationLists = routes.filter((item) =>
+    item.parent.includes(user_type)
+  );
+    return (
+      <div className={classes.wrapper}>
+        <Sidebar
           routes={navigationLists}
+          logoText={'Decode Exam'}
+          logo={logo}
+          image={image}
           handleDrawerToggle={handleDrawerToggle}
+          open={mobileOpen}
+          color={color}
           {...rest}
         />
-        <div className={classes.content}>
-          <div className={classes.container}>
-            {' '}
-            <Outlet />
+        <div className={classes.mainPanel} ref={mainPanel}>
+          <Navbar
+            routes={navigationLists}
+            handleDrawerToggle={handleDrawerToggle}
+            {...rest}
+          />
+          <div className={classes.content}>
+            <div className={classes.container}>
+              {' '}
+              <Outlet />
+            </div>
           </div>
+          <Footer />
+          <FixedPlugin
+            handleImageClick={handleImageClick}
+            handleColorClick={handleColorClick}
+            bgColor={color}
+            bgImage={image}
+            handleFixedClick={handleFixedClick}
+            fixedClasses={fixedClasses}
+          />
         </div>
-        <Footer />
-        <FixedPlugin
-          handleImageClick={handleImageClick}
-          handleColorClick={handleColorClick}
-          bgColor={color}
-          bgImage={image}
-          handleFixedClick={handleFixedClick}
-          fixedClasses={fixedClasses}
-        />
       </div>
-    </div>
-  );
+    );
 }

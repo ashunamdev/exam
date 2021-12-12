@@ -80,7 +80,7 @@ export default function BatchForm() {
         }
       })
       .then((res) => {
-        alert(res?.message);
+        alert(res.data?.message);
         console.log('RESPONSE ==== : ', res);
       })
       .catch((err) => {

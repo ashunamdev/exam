@@ -110,6 +110,7 @@ export default function StudentRegister() {
           }
         )
         .then((res) => {
+          alert(res?.data?.message)
           setBatchList(res.data.data);
           console.log('RESPONSE setBatchList==== : ', res.data.data);
           // console.log('RESPONSE ==== : ', schoolList);
