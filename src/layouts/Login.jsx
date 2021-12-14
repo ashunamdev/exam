@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import axios from "axios";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types';
 // import './login.css'
-import "./Login.css";
+import './Login.css';
 // import Admin from "layouts/Admin.js";
-import LoginPng from "../assets/img/login.png";
+import LoginPng from '../assets/img/login.png';
 // import RTL from "layouts/RTL.js";
 // import ReactDOM from "react-dom";
 // import {
@@ -12,7 +12,7 @@ import LoginPng from "../assets/img/login.png";
 //   Route,
 //   Routes
 // } from 'react-router-dom';
-import { BASE_URL } from "utils/constant";
+import { BASE_URL } from 'utils/constant';
 
 // async function loginUser(credentials) {
 //  return fetch('http://3.139.234.205/login/', {
@@ -28,16 +28,15 @@ import { BASE_URL } from "utils/constant";
 
 export default function Login({ setToken }) {
   const [loginData, setLoginData] = useState({
-    username: "",
-    password: "",
+    username: '',
+    password: ''
   });
-  const [tokenId, setTokenId] = useState();
 
   const setForm = (event) => {
     let { name, value } = event.target;
     setLoginData({
       ...loginData,
-      [name]: value,
+      [name]: value
     });
   };
 
@@ -51,22 +50,22 @@ export default function Login({ setToken }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios
-      .post(`${BASE_URL}login/`, loginData)
-      .then((res) => {
+    axios.post(`${BASE_URL}login/`, loginData).then((res) => {
+      if (res?.data?.status) {
+        window.localStorage.setItem('user', JSON.stringify(res?.data));
         window.location.reload();
-        location.reload();
 
-        console.log("RESPONSE ==== : ", res);
-        window.localStorage.setItem("user", JSON.stringify(res?.data));
-        setTokenId(res?.token);
-        setToken(tokenId);
-        // handleRedirect();
-      })
-      .catch((err) => {
-        alert("username or password does not matched");
-        console.log("ERROR: ====", err);
-      });
+        setToken(res?.token);
+      } else {
+        alert(res?.data?.message);
+      }
+
+      // handleRedirect();
+    });
+    // .catch((err) => {
+    //   alert("username or password does not matched");
+    //   console.log("ERROR: ====", err);
+    // });
   };
 
   // const handleRedirect = () => {
@@ -115,5 +114,5 @@ export default function Login({ setToken }) {
 }
 
 Login.propTypes = {
-  setToken: PropTypes.func.isRequired,
+  setToken: PropTypes.func.isRequired
 };
