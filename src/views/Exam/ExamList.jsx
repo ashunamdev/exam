@@ -7,35 +7,53 @@ import GridContainer from 'components/Grid/GridContainer.js';
 import Card from 'components/Card/Card.js';
 import CardBody from 'components/Card/CardBody.js';
 import MaterialTable from 'material-table';
-import { connect } from '../../api/index';
+// import { connect } from '../../api/index';
 
 import axios from 'axios';
 import { BASE_URL } from 'utils/constant';
 import moment from 'moment';
 export default function ExamList() {
   const [examList, setExamList] = useState([]);
-  let userType = null
-  let userStorageData = localStorage.getItem('user') 
+  let userType = null;
+  let userStorageData = localStorage.getItem('user');
   if (userStorageData) {
     let userData = JSON.parse(userStorageData);
     userType = userData?.user_type;
   }
 
-
+  // useEffect(() => {
+  //   populateStudentList();
+  // }, []);
   useEffect(() => {
-    populateStudentList();
-  }, []);
+    console.log(`initializing interval`);
+      populateStudentList();
+
+    const interval = setInterval(() => {
+      populateStudentList();
+      // updateTime();
+    }, 30000);
+
+    return () => {
+      console.log(`clearing interval`);
+      clearInterval(interval);
+    };
+    }, []); 
+  
 
   const populateStudentList = () => {
     var userData = JSON.parse(window.localStorage.getItem('user'));
 
     const getData = async () => {
       axios
-        .post(`${BASE_URL}get-exam/`,{},{
-          headers: {
-            Authorization: `JWT ` + userData?.token
+        .post(
+          `${BASE_URL}get-exam/`,
+          {},
+          {
+            headers: {
+              Authorization: `JWT ` + userData?.token
+            }
           }
-        })
+        )
         .then((res) => {
           setExamList(res.data.data);
           console.log('RESPONSE ==== : ', res);
@@ -92,19 +110,17 @@ export default function ExamList() {
   ];
 
   const handleExamFun = (rowData) => {
-
-  if (userType === 'teacher' || userType === 'school') {
-     if (confirm('Hello Teacher, You want to Start exam ' + rowData.title)) {
-       window.open(`https://rtc.decode-exam.com?id=${rowData.id}`, '_blank');
-     }
-  } else if (userType === 'student') {
-    if(confirm('HI Student, You want to Start exam ' + rowData.title)){
-      window.open(`https://rtc.decode-exam.com?id=${rowData.id}`, '_blank');
+    if (userType === 'teacher' || userType === 'school') {
+      if (confirm('Hello Teacher, You want to Start exam ' + rowData.title)) {
+        window.open(`https://rtc.decode-exam.com?id=${rowData.id}`, '_blank');
+      }
+    } else if (userType === 'student') {
+      if (confirm('HI Student, You want to Start exam ' + rowData.title)) {
+        window.open(`https://rtc.decode-exam.com?id=${rowData.id}`, '_blank');
+      }
+    } else {
+      confirm('Something went to wrong');
     }
-  }else {
-    confirm('Something went to wrong');
-
-  }
   };
   return (
     <GridContainer>
