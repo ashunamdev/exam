@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 // @material-ui/core components
 // core components
@@ -10,9 +11,16 @@ import { connect } from '../../api/index';
 
 import axios from 'axios';
 import { BASE_URL } from 'utils/constant';
-
+import moment from 'moment';
 export default function ExamList() {
   const [examList, setExamList] = useState([]);
+  let userType = null
+  let userStorageData = localStorage.getItem('user') 
+  if (userStorageData) {
+    let userData = JSON.parse(userStorageData);
+    userType = userData?.user_type;
+  }
+
 
   useEffect(() => {
     populateStudentList();
@@ -84,18 +92,12 @@ export default function ExamList() {
   ];
 
   const handleExamFun = (rowData) => {
-    let userStorageData = localStorage.getItem('user') 
-if (userStorageData) {
-  console.log('rowdata', rowData);
-  let userData =  JSON.parse(userStorageData);
-  if (userData?.user_type === 'teacher' || userData?.user_type === 'school') {
-    connect((message) => {
-      console.log(message);
-    });
+
+  if (userType === 'teacher' || userType === 'school') {
      if (confirm('Hello Teacher, You want to Start exam ' + rowData.title)) {
        window.open(`https://rtc.decode-exam.com?id=${rowData.id}`, '_blank');
      }
-  } else if (userData?.user_type === 'student') {
+  } else if (userType === 'student') {
     if(confirm('HI Student, You want to Start exam ' + rowData.title)){
       window.open(`https://rtc.decode-exam.com?id=${rowData.id}`, '_blank');
     }
@@ -103,7 +105,6 @@ if (userStorageData) {
     confirm('Something went to wrong');
 
   }
-}
   };
   return (
     <GridContainer>
@@ -115,13 +116,28 @@ if (userStorageData) {
               data={examList}
               columns={columns}
               actions={[
-                {
+                (rowData) => ({
                   icon: 'monitor',
-                  tooltip: 'Start Exam',
-                  onClick: (event, rowData) =>{
+                  tooltip:
+                    userType === 'school' || userType === 'teacher'
+                      ? 'Start Now'
+                      : 'Join Now',
+                  onClick: (event, rowData) => {
                     handleExamFun(rowData);
-                  }
-                }
+                  },
+                  disabled:
+                    rowData.exam_status === 'upcoming' &&
+                    moment().isBetween(
+                      moment(
+                        rowData.assessment_date + rowData.exam_time
+                      ).format('YYYY:MM:DD hh:mm:ss'),
+                      moment(rowData.assessment_date + ' ' + rowData.exam_time)
+                        .add(rowData.duration, 'minutes')
+                        .format('YYYY:MM:DD hh:mm:ss')
+                    )
+                      ? false
+                      : true
+                })
               ]}
               options={{
                 filtering: true
