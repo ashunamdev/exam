@@ -1,5 +1,13 @@
 import Dashboard from '@material-ui/icons/Dashboard';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
+import MenuBook from '@material-ui/icons/MenuBook';
+import Quiz from '@material-ui/icons/PlaylistAdd';
+import Create from '@material-ui/icons/Create';
+import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
+import School from '@material-ui/icons/School';
+import ViewList from '@material-ui/icons/ViewList';
+
+
 // import BubbleChart from "@material-ui/icons/BubbleChart";
 // import LocationOn from "@material-ui/icons/LocationOn";
 // import Notifications from "@material-ui/icons/Notifications";
@@ -32,7 +40,7 @@ const _nav = [
   {
     path: '/school-register',
     name: 'Add School Section',
-    icon: LibraryBooks,
+    icon: School,
     component: Typography,
     parent: ['super_admin'],
     layout: '/admin'
@@ -40,7 +48,7 @@ const _nav = [
   {
     path: '/school-list',
     name: 'School List',
-    icon: 'content_paste',
+    icon: ViewList,
     component: SchoolList,
     parent: ['school', 'super_admin'],
     layout: '/admin'
@@ -48,7 +56,7 @@ const _nav = [
   {
     path: '/teacher-register',
     name: 'Add Teacher Section',
-    icon: LibraryBooks,
+    icon: SupervisorAccount,
     component: TeacherRegister,
     parent: ['school'],
     layout: '/admin'
@@ -56,7 +64,7 @@ const _nav = [
   {
     path: '/teacher-list',
     name: 'Teacher List',
-    icon: 'content_paste',
+    icon: ViewList,
     component: TeacherList,
     parent: ['school', 'super_admin'],
     layout: '/admin'
@@ -64,7 +72,7 @@ const _nav = [
   {
     path: '/student-register',
     name: 'Add Student Section',
-    icon: LibraryBooks,
+    icon: SupervisorAccount,
     component: StudentRegister,
     parent: ['school'],
     layout: '/admin'
@@ -72,7 +80,7 @@ const _nav = [
   {
     path: '/student-list',
     name: 'StudentList',
-    icon: 'content_paste',
+    icon: ViewList,
     component: StudentList,
     parent: ['teacher', 'school', 'super_admin'],
     layout: '/admin'
@@ -89,7 +97,7 @@ const _nav = [
   {
     path: '/batch-list',
     name: 'Batch List',
-    icon: 'content_paste',
+    icon: ViewList,
     component: BatchList,
     parent: ['teacher', 'school'],
     layout: '/admin'
@@ -97,7 +105,7 @@ const _nav = [
   {
     path: '/question-register',
     name: 'Add Question Section',
-    icon: LibraryBooks,
+    icon: Quiz,
     component: QuestionForm,
     parent: ['teacher', 'school'],
     layout: '/admin'
@@ -105,7 +113,7 @@ const _nav = [
   {
     path: '/question-list',
     name: 'QuestionList',
-    icon: 'content_paste',
+    icon: ViewList,
     component: QuestionList,
     parent: ['teacher', 'school'],
     layout: '/admin'
@@ -113,7 +121,7 @@ const _nav = [
   {
     path: '/create-exam',
     name: 'Create Exam',
-    icon: 'content_paste',
+    icon: Create,
     component: CreateExam,
     parent: ['teacher', 'school'],
     layout: '/admin'
@@ -121,7 +129,7 @@ const _nav = [
   {
     path: '/exam-list',
     name: 'ExamList',
-    icon: 'content_paste',
+    icon: MenuBook,
     component: ExamList,
     parent: ['teacher', 'school', 'student', 'super_admin'],
     layout: '/admin'
