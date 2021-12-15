@@ -43,7 +43,7 @@ const Routes = () => {
 
       children: [
         {
-          path: '/admin/',
+          path: '/',
           element: isAuth ? (
             <Navigate to="/admin/dashboard" />
           ) : (

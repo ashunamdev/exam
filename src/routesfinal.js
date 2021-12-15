@@ -1,5 +1,4 @@
 import Dashboard from '@material-ui/icons/Dashboard';
-import Person from '@material-ui/icons/Person';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 // import BubbleChart from "@material-ui/icons/BubbleChart";
 // import LocationOn from "@material-ui/icons/LocationOn";
@@ -8,7 +7,6 @@ import LibraryBooks from '@material-ui/icons/LibraryBooks';
 // import Language from "@material-ui/icons/Language";
 // core components/views for Admin layout
 import DashboardPage from 'views/Dashboard/Dashboard.jsx';
-import UserProfile from 'views/UserProfile/UserProfile.jsx';
 import StudentList from 'views/StudentList/StudentList.jsx';
 import StudentRegister from 'views/StudentList/StudentRegister';
 import TeacherRegister from 'views/TeacherList/TeacherRegister';
@@ -30,14 +28,6 @@ const _nav = [
     component: DashboardPage,
     layout: '/admin',
     parent: ['teacher', 'school', 'student', 'super_admin']
-  },
-  {
-    path: '/user',
-    name: 'User Profile',
-    icon: Person,
-    component: UserProfile,
-    parent: ['school', 'super_admin'],
-    layout: '/admin'
   },
   {
     path: '/school-register',
